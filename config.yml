@@ -1,0 +1,110 @@
+hudson:
+  authorizationStrategy:
+    attributes:
+    - class=hudson.security.AuthorizationStrategy$Unsecured
+  buildsDir: ${ITEM_ROOTDIR}/builds
+  clouds:
+    com.nirima.jenkins.plugins.docker.DockerCloud:
+      attributes:
+      - plugin=docker-plugin@0.13.0
+      connectTimeout: '1110'
+      containerCap: '115'
+      credentialsId: ''
+      name: dcoker
+      readTimeout: '1110'
+      serverUrl: http://voidtechnologies.io:4243
+      templates:
+        com.nirima.jenkins.plugins.docker.DockerTemplate:
+          configVersion: '2'
+          dockerTemplateBase:
+            bindAllPorts: 'false'
+            bindPorts: ''
+            dnsHosts: ''
+            dockerCommand: ''
+            environment: ''
+            extraHosts:
+              attributes:
+              - class=java.util.Collections$UnmodifiableRandomAccessList
+              - resolves-to=java.util.Collections$UnmodifiableList
+              c:
+                attributes:
+                - class=list
+              list:
+                attributes:
+                - reference=../c
+            hostname: ''
+            image: evarga/jenkins-slave
+            lxcConfString: ''
+            privileged: 'false'
+            tty: 'false'
+            volumes: ''
+            volumesFrom2: ''
+          instanceCap: '1'
+          labelString: ''
+          launcher:
+            attributes:
+            - class=com.nirima.jenkins.plugins.docker.launcher.DockerComputerSSHLauncher
+            sshConnector:
+              attributes:
+              - plugin=ssh-slaves@1.6
+              credentialsId: 90dd5a18-ca15-495e-b182-82226354a1f6
+              javaPath: ''
+              jvmOptions: ''
+              port: '22'
+          mode: NORMAL
+          numExecutors: '1'
+          pullStrategy: PULL_LATEST
+          remoteFs: /home/jenkins
+          remoteFsMapping: ''
+          removeVolumes: 'false'
+          retentionStrategy:
+            attributes:
+            - class=com.nirima.jenkins.plugins.docker.strategy.DockerOnceRetentionStrategy
+            idleMinutes-1: '10'
+      version: ''
+  disableRememberMe: 'false'
+  disabledAdministrativeMonitors: ''
+  globalNodeProperties: ''
+  jdks: ''
+  label: ''
+  mode: EXCLUSIVE
+  myViewsTabBar:
+    attributes:
+    - class=hudson.views.DefaultMyViewsTabBar
+  nodeProperties: ''
+  numExecutors: '2'
+  primaryView: All
+  projectNamingStrategy:
+    attributes:
+    - class=jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy
+  quietPeriod: '5'
+  scmCheckoutRetryCount: '0'
+  securityRealm:
+    attributes:
+    - class=hudson.security.SecurityRealm$None
+  slaveAgentPort: '0'
+  slaves: ''
+  useSecurity: 'true'
+  version: 1.596.2
+  views:
+    hudson.model.AllView:
+      filterExecutors: 'false'
+      filterQueue: 'false'
+      name: All
+      owner:
+        attributes:
+        - class=hudson
+        - reference=../../..
+      properties:
+        attributes:
+        - class=hudson.model.View$PropertyList
+  viewsTabBar:
+    attributes:
+    - class=hudson.views.DefaultViewsTabBar
+  workspaceDir: ${ITEM_ROOTDIR}/workspace
+---
+plugins:
+  - 'docker-plugin:0.13.0'
+  - 'durable-task:1.3'
+  - 'token-macro:1.7'
+  - 'ssh-slaves:1.6'
